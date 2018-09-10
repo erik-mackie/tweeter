@@ -25,13 +25,11 @@ body {
  * Additional CSS can be defined below or in other CSS files, as per instructions
  */
 
-.container {
-  position:relative;
-  width: 450px;
-  height: 200px; /*delete at some point*/
+ .container {
+  position: relative;
+  width:450px;
+  height:200px;
   background-color:#FFFFFF;
-  display: block;
+  margin: 0 auto 0 auto;
   top: 140px;
-  margin-left: auto;
-  margin-right: auto;
-}
+ }
