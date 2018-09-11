@@ -7,6 +7,7 @@ const tweetsRoutes  = express.Router();
 
 module.exports = function(DataHelpers) {
 
+// get ..../tweets/
   tweetsRoutes.get("/", function(req, res) {
     DataHelpers.getTweets((err, tweets) => {
       if (err) {
@@ -44,3 +45,7 @@ module.exports = function(DataHelpers) {
   return tweetsRoutes;
 
 }
+
+  tweetsRoutes.get("/:id", function(req, res) {
+  tweetsRoutes.get("/", function(req, res) {
+

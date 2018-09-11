@@ -28,8 +28,9 @@ body {
  .container {
   position: relative;
   width:450px;
-  height:200px;
+  height:100vh;
   background-color:#FFFFFF;
   margin: 0 auto 0 auto;
-  top: 140px;
+  top: 80px;
+
  }

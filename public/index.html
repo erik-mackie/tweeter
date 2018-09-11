@@ -10,6 +10,7 @@
     <!-- App CSS -->
     <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
     <link rel="stylesheet" href="/styles/nav.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/new-tweet.css" type="text/css" />
     <!-- External JS -->
     <script type="text/javascript" src="/vendor/jquery-2.2.3.min.js"></script>
     <!-- App JS -->
@@ -26,9 +27,16 @@
 
     <!-- Page-specific (main) content here -->
     <main class="container">
-      <p>Lorem ipsum dolor sit amet, has et nobis vivendum disputationi, eloquentiam instructior usu cu. Eu sea essent animal periculis, facete persecuti mei eu. Illud utamur deterruisset ius te. Pri et mundi docendi.
-
-      At mel quando abhorreant, ei est assum eirmod. Voluptua efficiantur cu vix, ius cu everti causae eligendi. Feugait fabellas apeirian mei cu, duo etiam clita utinam eu, populo vivendo disputationi cum cu. Accusam detracto placerat pri id, vel elitr ridens instructior cu. An facilisi consequuntur qui. An alia invenire qualisque vix.</p>
+      <section class="new-tweet">
+        <h2>Compose Tweet</h2>
+        <form action="/tweets/" method="POST">
+          <div class="textContainer">
+            <textarea name="text" placeholder="What are you humming about?"></textarea>
+          </div>
+          <input type="submit" value="Tweet">
+          <span class="counter">140</span>
+        </form>
+      </section>
     </main>
 
   </body>
