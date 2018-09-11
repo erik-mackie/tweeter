@@ -46,6 +46,3 @@ module.exports = function(DataHelpers) {
 
 }
 
-  tweetsRoutes.get("/:id", function(req, res) {
-  tweetsRoutes.get("/", function(req, res) {
-
