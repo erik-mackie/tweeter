@@ -42,7 +42,7 @@ $(function() {
       console.log(newItem)
       $(newItem).appendTo('.tweet-container');
     })
-  }
+  }//
 
   //create HTML Element
   function createTweetElement (storedTweet) {
