@@ -3,7 +3,7 @@
  * jQuery is already loaded
  * Reminder: Use (and do all your DOM work in) jQuery's document ready function
  */
-var tweetData = [
+/*var tweetData = [
 {
     "user": {
       "name": "Newton",
@@ -33,13 +33,16 @@ var tweetData = [
     },
     "created_at": 1461113959088
   }
-];
-// render tweets from tweets library
+];*/
+
 $(function() {
+
+
+
+  // render tweets from tweets library
   function renderTweets (tweetsStorage) {
     tweetsStorage.forEach(tweet => {
       let newItem = createTweetElement(tweet);
-      console.log(newItem);
       $(newItem).appendTo('.tweet-container');
     });
   }
@@ -63,7 +66,7 @@ $(function() {
           <p>${content}</p>
         </div>
         <footer>
-          <p>${convertMiliseconds(createdAt)}</p>
+          <p>${convertMilliseconds(createdAt)}</p>
           <div>
             <img src="/images/flag.png">
             <img src="/images/share.png">
@@ -75,7 +78,7 @@ $(function() {
   return $tweet
   }
 
-  function convertMiliseconds(milliseconds) {
+  function convertMilliseconds(milliseconds) {
     // setup date date vs post date
     let date = Date.now();
     let tweetDate = date - milliseconds;
@@ -97,16 +100,22 @@ $(function() {
       return `${minutes} minutes ago`
    }
   };
-})
 
  /*renderTweets(tweetData);*/
 
-$(function() {
+  // fetch tweets
+  function loadTweets () {
+    $.ajax('/tweets/', { method: 'GET' })
+    .then(function (response) {
+      renderTweets(response);
+    })
+  }
+  loadTweets(); //
+
+// post data from form with AJAX
   $('.new-tweet form').submit( (event) => {
     event.preventDefault();
     let textPassed = $('.new-tweet form textArea').serialize();
-    console.log(textPassed)
-
     console.log('Button clicked, performing ajax call...');
     $.ajax('/tweets/', {
       method: 'POST',
@@ -114,15 +123,16 @@ $(function() {
     })
     .then(function (tweetData) {
       console.log("test");
+
+      $('.new-tweet form textArea').val("");
+
+      //render tweets
       // renderTweets(tweetData);
+
+      //$button.replaceWith(morePostsHtml);
     })
   });
 });
 
 
-
-// need to handle data the submit eent that gets emitted by the form and prevents
-// its default behaviour of sending the post
-
-// with jquery listen for the form sumbit with the submit handler
-
+//
