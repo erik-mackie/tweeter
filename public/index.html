@@ -26,10 +26,10 @@
     <nav id="nav-bar">
       <img class="logo" src="/images/bird.png">
       <span class="header">Tweeter</span>
-      <div>
+      <button>
         <img src="/images/edit.png">
         <p>Compose</p>
-      </div>
+      </button>
     </nav>
 
     <!-- Page-specific (main) content here -->
@@ -37,10 +37,13 @@
       <!-- New tweet container -->
       <section class="new-tweet">
         <h2>Compose Tweet</h2>
-
         <form action="/tweets/" method="POST">
           <div class="textContainer">
             <textarea name="text" placeholder="What are you humming about?"></textarea>
+            <div id="text-error">
+              <div></div>
+              <p>Placeholder text for bad entry</p>
+            </div>
           </div>
           <input type="submit" value="Tweet">
           <span class="counter">140</span>

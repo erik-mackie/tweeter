@@ -24,3 +24,35 @@
   float:left;
 
 }
+
+#nav-bar button {
+  background-color: #D2FDFE;
+  color: #66CDAA;
+  height:60px;
+  width: 120px;
+  float: right;
+  margin: 10px 0 10px 0;
+  border-radius: 5px;
+  border: 1px black solid;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+
+}
+
+#nav-bar button:hover {
+  background-color: #FBFBFB;
+  color: black;
+}
+
+#nav-bar button img {
+  width:19px;
+  height:19px;
+  margin-left:5px;
+}
+
+#nav-bar button p {
+  font-size: 19px;
+  margin-right:5px;
+}
