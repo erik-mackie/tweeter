@@ -101,8 +101,6 @@ $(function() {
    }
   };
 
- /*renderTweets(tweetData);*/
-
   // fetch tweets
   function loadTweets () {
     $.ajax('/tweets/', { method: 'GET' })
@@ -110,28 +108,35 @@ $(function() {
       renderTweets(response);
     })
   }
-  loadTweets(); //
+  loadTweets(); // put then return?
+
+  function validate (tweet) {
+    if (!tweet.val()) {
+      alert("Please chirp before submitting");
+      return;
+    } else if (tweet.val().length > 140) {
+      alert("Don't out sing the other birds");
+      return;
+    } else {
+      return tweet.serialize();
+    }
+  }
 
 // post data from form with AJAX
-  $('.new-tweet form').submit( (event) => {
+  $('.new-tweet form').submit(function (event) {
     event.preventDefault();
-    let textPassed = $('.new-tweet form textArea').serialize();
-    console.log('Button clicked, performing ajax call...');
-    $.ajax('/tweets/', {
-      method: 'POST',
-      data: textPassed
-    })
-    .then(function (tweetData) {
-      console.log("test");
-
-      $('.new-tweet form textArea').val("");
-
-      //render tweets
-      // renderTweets(tweetData);
-
-      //$button.replaceWith(morePostsHtml);
-    })
+    const validedTweet = validate($('.new-tweet form textArea'));
+    if (validedTweet) {
+      $.ajax('/tweets/', {
+        method: 'POST',
+        data: validedTweet
+      })
+      .then(function (err, response) {
+        $('.new-tweet form textArea').val("");
+      })
+    }
   });
+
 });
 
 
