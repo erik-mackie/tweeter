@@ -37,11 +37,9 @@
 
 $(function() {
 
-
-
   // render tweets from tweets library
   function renderTweets (tweetsStorage) {
-    tweetsStorage.forEach(tweet => {
+    tweetsStorage.reverse().forEach(tweet => {
       let newItem = createTweetElement(tweet);
       $(newItem).appendTo('.tweet-container');
     });
@@ -108,7 +106,7 @@ $(function() {
       renderTweets(response);
     })
   }
-  loadTweets(); // put then return?
+
 
   function validate (tweet) {
     if (!tweet.val()) {
@@ -132,7 +130,10 @@ $(function() {
         data: validedTweet
       })
       .then(function (err, response) {
+        $('.tweet-container').empty()
+        loadTweets();
         $('.new-tweet form textArea').val("");
+
       })
     }
   });
