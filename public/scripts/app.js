@@ -3,15 +3,45 @@
  * jQuery is already loaded
  * Reminder: Use (and do all your DOM work in) jQuery's document ready function
  */
-var tweetData = [];
-
+var tweetData = [
+{
+    "user": {
+      "name": "Newton",
+      "avatars": {
+        "small":   "https://vanillicon.com/788e533873e80d2002fa14e1412b4188_50.png",
+        "regular": "https://vanillicon.com/788e533873e80d2002fa14e1412b4188.png",
+        "large":   "https://vanillicon.com/788e533873e80d2002fa14e1412b4188_200.png"
+      },
+      "handle": "@SirIsaac"
+    },
+    "content": {
+      "text": "If I have seen further it is by standing on the shoulders of giants"
+    },
+    "created_at": 1461116232227
+  },
+  {
+    "user": {
+      "name": "Descartes",
+      "avatars": {
+        "small":   "https://vanillicon.com/7b89b0d8280b93e2ba68841436c0bebc_50.png",
+        "regular": "https://vanillicon.com/7b89b0d8280b93e2ba68841436c0bebc.png",
+        "large":   "https://vanillicon.com/7b89b0d8280b93e2ba68841436c0bebc_200.png"
+      },
+      "handle": "@rd" },
+    "content": {
+      "text": "Je pense , donc je suis"
+    },
+    "created_at": 1461113959088
+  }
+];
+// render tweets from tweets library
 $(function() {
   function renderTweets (tweetsStorage) {
     tweetsStorage.forEach(tweet => {
       let newItem = createTweetElement(tweet);
-      console.log(newItem)
+      console.log(newItem);
       $(newItem).appendTo('.tweet-container');
-    })
+    });
   }
 
   //create HTML Element
@@ -40,14 +70,10 @@ $(function() {
             <img src="/images/heart1.png">
           </div>
         </footer>
-
       </article>
-      `
-   return $tweet
+      `;
+  return $tweet
   }
-
-    renderTweets(tweetData);
-
 
   function convertMiliseconds(milliseconds) {
     // setup date date vs post date
@@ -63,29 +89,40 @@ $(function() {
     hours = parseInt(total_hours % 24);
 
     // set if minutes, hours, or days in post age
-   if( days >= 1) {
-    console.log("days")
-    return `${days} days ago`
-   } else if ( hours >= 1) {
-    console.log("hours")
-    return `${hours} hours ago`
+    if (days >= 1) {
+      return `${days} days ago`
+   } else if (hours >= 1) {
+      return `${hours} hours ago`
    } else {
-    console.log("minutes")
-    return `${minutes} minutes ago`
+      return `${minutes} minutes ago`
    }
   };
 })
 
+ /*renderTweets(tweetData);*/
+
+$(function() {
+  $('.new-tweet form').submit( (event) => {
+    event.preventDefault();
+    let textPassed = $('.new-tweet form textArea').serialize();
+    console.log(textPassed)
+
+    console.log('Button clicked, performing ajax call...');
+    $.ajax('/tweets/', {
+      method: 'POST',
+      data: textPassed
+    })
+    .then(function (tweetData) {
+      console.log("test");
+      // renderTweets(tweetData);
+    })
+  });
+});
 
 
 
-/*$('<article>').addClass('tweet');
-  $('<header>').append($tweet);
-  $('header').prepend(`<img src='${avatar}'/>`); // image
-  $('<h2>').text(name).appendTo('header'); // name
-  $('<p>').text(handle).appendTo('header'); // header
-  $('<div>').appendTo('article');
-  $('<p>').text(content).appendTo('article div'); // content
-  $('<footer>').append($tweet);
-  $('<p>').text()
-*/
+// need to handle data the submit eent that gets emitted by the form and prevents
+// its default behaviour of sending the post
+
+// with jquery listen for the form sumbit with the submit handler
+
