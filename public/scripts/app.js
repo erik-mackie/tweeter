@@ -53,15 +53,22 @@ $(function() {
     const content = storedTweet.content.text;
     const createdAt = storedTweet.created_at;
 
+    // prevent cross site scripting
+    function escape(str) {
+      var div = document.createElement('div');
+      div.appendChild(document.createTextNode(str));
+      return div.innerHTML;
+    }
+
     const $tweet =  `
       <article class="tweet">
         <header>
           <img src="${avatar}">
-          <h2>${name}</h2>
-          <p>${handle}</p>
+          <h2>${escape(name)}</h2>
+          <p>${escape(handle)}</p>
         </header>
         <div>
-          <p>${content}</p>
+          <p>${escape(content)}</p>
         </div>
         <footer>
           <p>${convertMilliseconds(createdAt)}</p>
@@ -73,7 +80,7 @@ $(function() {
         </footer>
       </article>
       `;
-  return $tweet
+  return $tweet;
   }
 
   function convertMilliseconds(milliseconds) {
@@ -84,7 +91,8 @@ $(function() {
     total_seconds = parseInt(Math.floor(tweetDate / 1000));
     total_minutes = parseInt(Math.floor(total_seconds / 60));
     total_hours = parseInt(Math.floor(total_minutes / 60));
-
+    //fix seconds call
+    //fix seconds call
     days = parseInt(Math.floor(total_hours / 24));
     minutes = parseInt(total_minutes % 60);
     hours = parseInt(total_hours % 24);
@@ -141,4 +149,3 @@ $(function() {
 });
 
 
-//
