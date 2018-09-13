@@ -84,23 +84,44 @@ $(function() {
     })
   }
 
-// dont have side effects/ refactor
-  function validate (tweet) {
-    if (!tweet.val()) {
-      alert("Please chirp before submitting");
-      return;
-    } else if (tweet.val().length > 140) {
-      alert("Don't out sing the other birds");
-      return;
-    } else {
-      return tweet.serialize();
-    }
-  }
+// // dont have side effects/ refactor
+//   function validate (tweet) {
+//     if (!tweet.val()) {
+//       alert("Please chirp before submitting");
+//       return;
+//     } else if (tweet.val().length > 140) {
+//       alert("Don't out sing the other birds");
+//       return;
+//     } else {
+//       return tweet.serialize();
+
+//   }
 
 // post data from form with AJAX
   $('.new-tweet form').submit(function (event) {
     event.preventDefault();
-    const validedTweet = validate($('.new-tweet form textArea'));
+    const passedTweet = $('.new-tweet form textArea');
+    const errorResponse = $('#wrapper');
+    let validedTweet;
+
+    // validate form input and respond with errors
+    if (!passedTweet.val()) {
+      errorResponse.slideDown(function() {
+      $('#text-error').css('display', 'flex')
+      $('#text-error #errorText').empty().append("Please Chirp Before Submitting");
+      })
+
+    } else if (passedTweet.val().length > 140) {
+      errorResponse.slideDown(function() {
+      $('#text-error').css('display', 'flex')
+      $('#text-error #errorText').empty().append("Don't out sing the other birdies");
+      })
+    } else {
+      errorResponse.slideUp()
+      validedTweet = passedTweet.serialize();
+    }
+
+    // if tweet is valid, run ajax
     if (validedTweet) {
       $.ajax('/tweets/', {
         method: 'POST',
@@ -109,8 +130,8 @@ $(function() {
       .then(function (err, response) {
         $('.tweet-container').empty()
         loadTweets();
-        $('.new-tweet form textArea').val("");
-
+        $('.new-tweet form textArea').val("")
+        /*errorResponse.toggleClass('errorHidden')*/
       })
     }
   });
@@ -118,7 +139,6 @@ $(function() {
   // on compose click toggle form visibility
   $('#nav-bar button').click(function() {
     // refactor DOM traversals in lets
-    let tw
     $('.new-tweet').slideToggle("fast")
     $('.new-tweet textarea').focus()
   })

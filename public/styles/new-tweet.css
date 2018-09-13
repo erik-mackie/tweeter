@@ -1,7 +1,6 @@
 
-
 .new-tweet {
-  display: none;
+  /*display: none;*/
   margin: 0px 2em 0 2em;
   background-color: #eee;
   border: 1px solid #C0C0C0;
@@ -31,6 +30,44 @@
 }
 
 
+/*.errorVisible {
+  display: flex;
+}
+
+div .errorHidden {
+  display: none;
+}*/
+
+#wrapper {
+  /*display:block;*/
+}
+
+#text-error {
+  width: 100%;
+  height: 20px;
+  background-color: #FA8072;
+  border-radius: 5px;
+  margin: 5px 0 5px 0;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  display: none;
+}
+
+#text-error div {
+  width: 20px;
+  height: 20px;
+  background-color: #FA8072;
+  position:relative;
+  right: 60px;
+  bottom: 9px;
+  transform: rotate(45deg);
+}
+
+#text-error #errorText {
+  font-size: 15px;
+  margin: 5px 0 5px 0 ;
+}
 
 .new-tweet input {
   margin: 0 0 10px 10px;
