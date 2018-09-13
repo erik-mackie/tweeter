@@ -22,6 +22,7 @@ $(function() {
     const content = storedTweet.content.text;
     const createdAt = storedTweet.created_at;
 
+//export to utilities
     // prevent cross site scripting
     function escape(str) {
       var div = document.createElement('div');
@@ -52,6 +53,7 @@ $(function() {
   return $tweet;
   }
 
+//export to utilities
   function convertMilliseconds(milliseconds) {
     // setup date date vs post date
     let date = Date.now();
