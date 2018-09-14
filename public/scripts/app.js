@@ -98,16 +98,16 @@ $(function() {
     if (!passedTweet.val()) {
       errorResponse.slideDown(function() {
         $('#text-error').css('display', 'flex');
-        $('#text-error #errorText').empty().append("Please Chirp Before Submitting");
+        $('#text-error #errorText').empty().append("Please chirp before submitting");
       });
     } else if (passedTweet.val().length > 140) {
       errorResponse.slideDown(function() {
         $('#text-error').css('display', 'flex');
-        $('#text-error #errorText').empty().append("Don't out sing the other birdies");
+        $('#text-error #errorText').empty().append("Do not out sing the other birdies");
       });
     } else {
       errorResponse.slideUp();
-      validedTweet = passedTweet.serialize();
+      validedTweet = passedTweet.serialize()
     }
 
     // if tweet is valid, run ajax
