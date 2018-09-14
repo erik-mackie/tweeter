@@ -35,6 +35,8 @@ body {
   margin: 0 auto 0 auto;
   margin-top: 80px;
   padding-top:60px;
+  padding-bottom:60px;
+  min-height: 100vh;
 
 }
 
