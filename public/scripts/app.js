@@ -1,8 +1,6 @@
-/*
- * Client-side JS logic goes here
- * jQuery is already loaded
- * Reminder: Use (and do all your DOM work in) jQuery's document ready function
- */
+
+const convertMilliseconds = require("../lib/util/convert-milliseconds");
+const escape = require("../lib/util/escape-string");
 
 $(function() {
 
@@ -22,13 +20,6 @@ $(function() {
     const content = storedTweet.content.text;
     const createdAt = storedTweet.created_at;
 
-//export to utilities
-    // prevent cross site scripting
-    function escape(str) {
-      var div = document.createElement('div');
-      div.appendChild(document.createTextNode(str));
-      return div.innerHTML;
-    }
 
     const $tweet =  `
       <article class="tweet">
@@ -53,31 +44,6 @@ $(function() {
   return $tweet;
   }
 
-//export to utilities
-  function convertMilliseconds(milliseconds) {
-    // setup date date vs post date
-    let date = Date.now();
-    let tweetDate = date - milliseconds;
-    let days, hours, minutes, total_hours, total_minutes, total_seconds;
-    total_seconds = parseInt(Math.floor(tweetDate / 1000));
-    total_minutes = parseInt(Math.floor(total_seconds / 60));
-    total_hours = parseInt(Math.floor(total_minutes / 60));
-    //fix seconds call
-    //fix seconds call
-    days = parseInt(Math.floor(total_hours / 24));
-    minutes = parseInt(total_minutes % 60);
-    hours = parseInt(total_hours % 24);
-
-    // set if minutes, hours, or days in post age
-    if (days >= 1) {
-      return `${days} days ago`
-   } else if (hours >= 1) {
-      return `${hours} hours ago`
-   } else {
-      return `${minutes} minutes ago`
-   }
-  };
-
   // fetch tweets
   function loadTweets () {
     $.ajax('/tweets/', { method: 'GET' })
@@ -85,19 +51,8 @@ $(function() {
       renderTweets(response);
     })
   }
+  loadTweets();
 
-// // dont have side effects/ refactor
-//   function validate (tweet) {
-//     if (!tweet.val()) {
-//       alert("Please chirp before submitting");
-//       return;
-//     } else if (tweet.val().length > 140) {
-//       alert("Don't out sing the other birds");
-//       return;
-//     } else {
-//       return tweet.serialize();
-
-//   }
 
 // post data from form with AJAX
   $('.new-tweet form').submit(function (event) {
@@ -109,13 +64,12 @@ $(function() {
     // validate form input and respond with errors
     if (!passedTweet.val()) {
       errorResponse.slideDown(function() {
-      $('#text-error').css('display', 'flex')
+      $('#text-error').css('display', 'flex');
       $('#text-error #errorText').empty().append("Please Chirp Before Submitting");
-      })
-
+      });
     } else if (passedTweet.val().length > 140) {
       errorResponse.slideDown(function() {
-      $('#text-error').css('display', 'flex')
+      $('#text-error').css('display', 'flex');
       $('#text-error #errorText').empty().append("Don't out sing the other birdies");
       })
     } else {
@@ -130,10 +84,9 @@ $(function() {
         data: validedTweet
       })
       .then(function (err, response) {
-        $('.tweet-container').empty()
+        $('.tweet-container').empty();
         loadTweets();
-        $('.new-tweet form textArea').val("")
-        /*errorResponse.toggleClass('errorHidden')*/
+        $('.new-tweet form textArea').val("");
       })
     }
   });
@@ -141,8 +94,8 @@ $(function() {
   // on compose click toggle form visibility
   $('#nav-bar button').click(function() {
     // refactor DOM traversals in lets
-    $('.new-tweet').slideToggle("fast")
-    $('.new-tweet textarea').focus()
+    $('.new-tweet').slideToggle("fast");
+    $('.new-tweet textarea').focus();
   })
 
 });
