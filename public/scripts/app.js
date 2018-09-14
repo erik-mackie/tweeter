@@ -1,6 +1,6 @@
+"use strict";
 
-const convertMilliseconds = require("../lib/util/convert-milliseconds");
-const escape = require("../lib/util/escape-string");
+
 
 $(function() {
 
@@ -20,7 +20,41 @@ $(function() {
     const content = storedTweet.content.text;
     const createdAt = storedTweet.created_at;
 
+    //cross site scripting
+    function escape (str) {
+      var div = document.createElement('div');
+      div.appendChild(document.createTextNode(str));
+      return div.innerHTML;
+    }
 
+    //convert created at to useable date
+    function convertMilliseconds (milliseconds) {
+      // setup date date vs post date
+      let date = Date.now();
+      let tweetDate = date - milliseconds;
+      let days, hours, minutes, seconds, total_hours, total_minutes, total_seconds;
+      total_seconds = parseInt(Math.floor(tweetDate / 1000));
+      total_minutes = parseInt(Math.floor(total_seconds / 60));
+      total_hours = parseInt(Math.floor(total_minutes / 60));
+
+      seconds = parseInt(total_seconds % 60);
+      minutes = parseInt(total_minutes % 60);
+      hours = parseInt(total_hours % 24);
+      days = parseInt(Math.floor(total_hours / 24));
+
+      // set if seconds, minutes, hours, or days in post age
+      if (days >= 1) {
+        return `${days} days ago`;
+      } else if (hours >= 1) {
+        return `${hours} hours ago`;
+      } else if (minutes >= 1){
+        return `${minutes} minutes ago`;
+      } else {
+        return `${seconds} seconds ago`;
+      }
+    }
+
+    //tweet to add
     const $tweet =  `
       <article class="tweet">
         <header>
@@ -41,20 +75,19 @@ $(function() {
         </footer>
       </article>
       `;
-  return $tweet;
+    return $tweet;
   }
 
   // fetch tweets
   function loadTweets () {
     $.ajax('/tweets/', { method: 'GET' })
-    .then(function (response) {
-      renderTweets(response);
-    })
+      .then(function (response) {
+        renderTweets(response);
+      });
   }
   loadTweets();
 
-
-// post data from form with AJAX
+  // post data from form with AJAX
   $('.new-tweet form').submit(function (event) {
     event.preventDefault();
     const passedTweet = $('.new-tweet form textArea');
@@ -64,16 +97,16 @@ $(function() {
     // validate form input and respond with errors
     if (!passedTweet.val()) {
       errorResponse.slideDown(function() {
-      $('#text-error').css('display', 'flex');
-      $('#text-error #errorText').empty().append("Please Chirp Before Submitting");
+        $('#text-error').css('display', 'flex');
+        $('#text-error #errorText').empty().append("Please Chirp Before Submitting");
       });
     } else if (passedTweet.val().length > 140) {
       errorResponse.slideDown(function() {
-      $('#text-error').css('display', 'flex');
-      $('#text-error #errorText').empty().append("Don't out sing the other birdies");
-      })
+        $('#text-error').css('display', 'flex');
+        $('#text-error #errorText').empty().append("Don't out sing the other birdies");
+      });
     } else {
-      errorResponse.slideUp()
+      errorResponse.slideUp();
       validedTweet = passedTweet.serialize();
     }
 
@@ -83,11 +116,11 @@ $(function() {
         method: 'POST',
         data: validedTweet
       })
-      .then(function (err, response) {
-        $('.tweet-container').empty();
-        loadTweets();
-        $('.new-tweet form textArea').val("");
-      })
+        .then(function () {
+          $('.tweet-container').empty();
+          loadTweets();
+          $('.new-tweet form textArea').val("");
+        });
     }
   });
 
@@ -96,31 +129,7 @@ $(function() {
     // refactor DOM traversals in lets
     $('.new-tweet').slideToggle("fast");
     $('.new-tweet textarea').focus();
-  })
+  });
 
 });
 
-
-
-
-// decouple this code
-
-// decouple this code
-
-// decouple this code
-
-// decouple this code
-
-// decouple this code
-
-// decouple this code
-
-// decouple this code
-
-// decouple this code
-
-// decouple this code
-
-// decouple this code
-
-// decouple this code
