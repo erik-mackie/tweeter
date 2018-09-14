@@ -14,5 +14,3 @@ $(function() {
 
 
 
-
-//maxlength attribute in textarea form?

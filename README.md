@@ -14,7 +14,9 @@ any way you see fit in 140 characters or less!
 ## Final Product
 
 
-
+![tweet feed](https://github.com/erik-mackie/tweeter/blob/master/docs/tweets-feeds.png)
+![new tweet](https://github.com/erik-mackie/tweeter/blob/master/docs/tweets-new.png)
+![tweet error](https://github.com/erik-mackie/tweeter/blob/master/docs/tweets-error.png)
 
 
 ## Dependencies

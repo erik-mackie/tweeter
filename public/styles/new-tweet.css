@@ -30,16 +30,8 @@
 }
 
 
-/*.errorVisible {
-  display: flex;
-}
-
-div .errorHidden {
-  display: none;
-}*/
-
 #wrapper {
-  /*display:block;*/
+  display:block;
 }
 
 #text-error {
