@@ -30,6 +30,7 @@ body {
 .container {
   position: relative;
   width:450px;
+  display: table;
   background-color:#FFFFFF;
   margin: 0 auto 0 auto;
   margin-top: 80px;
