@@ -1,27 +1,36 @@
 "use strict";
 
 // Simulates the kind of delay we see with network or filesystem operations
+const MONGODB_URI = "mongodb://localhost:27017/tweeter";
 const simulateDelay = require("./util/simulate-delay");
+// Defines helper functions for saving and getting tweets,
+//using the database `db`
+module.exports = function makeDataHelpers(tweetDatabase) {
 
-// Defines helper functions for saving and getting tweets, using the database `db`
-module.exports = function makeDataHelpers(db) {
   return {
 
     // Saves a tweet to `db`
     saveTweet: function(newTweet, callback) {
-      simulateDelay(() => {
-        db.tweets.push(newTweet);
+        tweetDatabase.collection("tweets").insertOne(newTweet);
+
         callback(null, true);
-      });
     },
 
     // Get all tweets in `db`, sorted by newest first
     getTweets: function(callback) {
-      simulateDelay(() => {
-        const sortNewestFirst = (a, b) => a.created_at - b.created_at;
-        callback(null, db.tweets.sort(sortNewestFirst));
-      });
+      tweetDatabase.collection("tweets").find().toArray(callback);
     }
 
   };
 }
+
+
+
+//confirm app still works as before
+
+
+
+// recieve db as callback from connect
+//collects are selected with db.COLLECTIONNAME('collectionname')
+// must call toArray() to get callback results
+
